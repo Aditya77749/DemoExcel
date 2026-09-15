@@ -1,0 +1,50 @@
+{
+    "gap_report_metadata": {
+        "requirement_id": "SCRUM-336",
+        "requirement_title": "Deploy a multi-agent AI framework that ingests product requirements directly from Jira",
+        "overall_coverage_percentage": 0.0
+    },
+    "coverage_gap_report": {
+        "summary": {
+            "total_criteria": 5,
+            "unmapped_count": 5,
+            "partially_mapped_count": 0,
+            "fully_mapped_count": 0
+        },
+        "unmapped_criteria": [
+            {
+                "acceptance_criterion": "Context Ingestion: The AI agent successfully connects to the Jira API to extract the User Story description, acceptance criteria, and any linked design assets.",
+                "status": "Not Covered",
+                "gap_analysis": "No test cases exist to validate Jira API connectivity, authentication, data extraction of user stories, acceptance criteria, or linked design assets. The AI agent's ability to parse and ingest Jira content is completely untested. All retrieved test cases focus on StarHub mobile device e-commerce functionality, which is unrelated to the AI framework requirement for Jira integration.",
+                "action_required": "Create test cases to verify: (1) Successful Jira API authentication and connection establishment, (2) Extraction of user story description field, (3) Extraction of acceptance criteria from dedicated field or description section, (4) Retrieval of linked design assets and attachments, (5) Error handling for invalid credentials, network failures, or missing Jira fields, (6) Data validation and format verification of extracted content."
+            },
+            {
+                "acceptance_criterion": "Scenario Generation: The system uses a \"Planner Agent\" to analyze the ingested story and output a list of positive, negative, and edge-case Test Scenarios.",
+                "status": "Not Covered",
+                "gap_analysis": "No test cases exist to validate the Planner Agent's scenario generation capabilities. The AI's ability to analyze requirements and produce comprehensive test scenarios covering positive, negative, and edge cases is completely untested. All retrieved test cases are manual test cases for StarHub e-commerce workflows and do not address AI-driven scenario generation functionality.",
+                "action_required": "Create test cases to verify: (1) Planner Agent successfully analyzes ingested user story and acceptance criteria, (2) Generation of positive test scenarios covering happy path workflows, (3) Generation of negative test scenarios covering error conditions and invalid inputs, (4) Generation of edge-case scenarios covering boundary conditions and unusual states, (5) Completeness and relevance of generated scenarios relative to acceptance criteria, (6) Scenario output format and structure, (7) Error handling when requirements are ambiguous or incomplete."
+            },
+            {
+                "acceptance_criterion": "Test Case Formulation: A \"Writer Agent\" translates the approved Test Scenarios into granular Test Cases (Pre-conditions, Steps, Expected Results).",
+                "status": "Not Covered",
+                "gap_analysis": "No test cases exist to validate the Writer Agent's ability to translate test scenarios into structured test cases with preconditions, steps, and expected results. The AI's test case authoring capability is completely untested. All retrieved test cases are pre-existing manual test cases for StarHub mobile device purchase flows and do not test the AI Writer Agent functionality.",
+                "action_required": "Create test cases to verify: (1) Writer Agent successfully receives approved test scenarios from Planner Agent, (2) Generation of clear and complete preconditions for each test case, (3) Generation of detailed, sequential test steps with proper numbering, (4) Generation of specific expected results for each test step, (5) Test case format compliance with TestRail structure and field requirements, (6) Traceability between generated test cases and source scenarios, (7) Quality and clarity of generated test case content, (8) Handling of complex scenarios requiring multiple test cases."
+            },
+            {
+                "acceptance_criterion": "Test Management Integration: The generated test cases are automatically formatted and published to the correct project suite in TestRail via API.",
+                "status": "Not Covered",
+                "gap_analysis": "No test cases exist to validate TestRail API integration, automatic formatting of test cases, or publishing to correct project suites. The end-to-end integration between the AI framework and TestRail is completely untested. All retrieved test cases focus on manual testing of StarHub e-commerce functionality and do not address TestRail API integration or automated test case publishing.",
+                "action_required": "Create test cases to verify: (1) Successful TestRail API authentication and connection, (2) Automatic formatting of AI-generated test cases to TestRail-compatible structure, (3) Correct mapping of test cases to target project, suite, and section in TestRail, (4) Successful creation of test cases via TestRail API with all required fields populated, (5) Verification that published test cases appear correctly in TestRail UI, (6) Error handling for API failures, authentication errors, or invalid project/suite IDs, (7) Handling of duplicate test cases or conflicts with existing test cases, (8) Audit trail and logging of published test cases."
+            },
+            {
+                "acceptance_criterion": "Human-in-the-Loop: The system flags ambiguous requirements and requires a QE sign-off before publishing cases to TestRail.",
+                "status": "Not Covered",
+                "gap_analysis": "No test cases exist to validate the human-in-the-loop workflow, ambiguity detection, or QE sign-off mechanism. The system's ability to identify ambiguous requirements and enforce approval workflows is completely untested. All retrieved test cases are manual test cases for StarHub mobile device workflows and do not address the AI framework's approval and sign-off mechanism.",
+                "action_required": "Create test cases to verify: (1) System successfully detects ambiguous or incomplete requirements in Jira stories, (2) Appropriate flags or alerts are generated when ambiguity is detected, (3) Generated test cases are held in pending/draft state until QE approval, (4) QE sign-off workflow is triggered and accessible to authorized users, (5) QE can review, approve, reject, or request modifications to generated test cases, (6) Approved test cases are automatically published to TestRail after sign-off, (7) Rejected test cases are not published and feedback is captured, (8) Audit trail records all approval actions and timestamps, (9) System prevents publishing without required QE sign-off."
+            }
+        ],
+        "partially_mapped_criteria": [],
+        "fully_mapped_criteria": [],
+        "test_case_improvements": []
+    }
+}
