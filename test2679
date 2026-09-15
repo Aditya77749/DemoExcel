@@ -1,0 +1,50 @@
+{
+    "gap_report_metadata": {
+        "requirement_id": "SCRUM-336",
+        "requirement_title": "Deploy a multi-agent AI framework that ingests product requirements directly from Jira",
+        "overall_coverage_percentage": 0.0
+    },
+    "coverage_gap_report": {
+        "summary": {
+            "total_criteria": 5,
+            "unmapped_count": 5,
+            "partially_mapped_count": 0,
+            "fully_mapped_count": 0
+        },
+        "unmapped_criteria": [
+            {
+                "acceptance_criterion": "Context Ingestion: The AI agent successfully connects to the Jira API to extract the User Story description, acceptance criteria, and any linked design assets.",
+                "status": "Not Covered",
+                "gap_analysis": "No test cases exist to validate Jira API connectivity, authentication, data extraction of user stories, acceptance criteria, or linked design assets by the AI agent. All retrieved test cases focus on helpdesk dashboard functionality and StarHub mobile device purchase workflows, which are unrelated to AI framework integration with Jira.",
+                "action_required": "Create test cases to verify: (1) Successful Jira API connection with valid credentials, (2) Extraction of User Story description field, (3) Extraction of acceptance criteria from dedicated field or description section, (4) Retrieval of linked design assets/attachments, (5) Error handling for invalid credentials or API failures, (6) Data validation and completeness checks after extraction."
+            },
+            {
+                "acceptance_criterion": "Scenario Generation: The system uses a \"Planner Agent\" to analyze the ingested story and output a list of positive, negative, and edge-case Test Scenarios.",
+                "status": "Not Covered",
+                "gap_analysis": "No test cases exist to validate the Planner Agent's ability to analyze user stories and generate comprehensive test scenarios covering positive, negative, and edge cases. The retrieved test cases are pre-defined manual test cases for helpdesk and e-commerce applications, not test cases that verify AI-driven scenario generation capabilities.",
+                "action_required": "Create test cases to verify: (1) Planner Agent successfully analyzes ingested user story content, (2) Generation of positive test scenarios covering happy path workflows, (3) Generation of negative test scenarios covering error conditions and invalid inputs, (4) Generation of edge-case scenarios covering boundary conditions and unusual states, (5) Completeness and relevance of generated scenarios relative to acceptance criteria, (6) Scenario output format and structure, (7) Handling of ambiguous or incomplete user stories."
+            },
+            {
+                "acceptance_criterion": "Test Case Formulation: A \"Writer Agent\" translates the approved Test Scenarios into granular Test Cases (Pre-conditions, Steps, Expected Results).",
+                "status": "Not Covered",
+                "gap_analysis": "No test cases exist to validate the Writer Agent's capability to translate test scenarios into structured test cases with pre-conditions, detailed steps, and expected results. The retrieved test cases are existing manual test cases for different application domains and do not test the AI agent's test case formulation capabilities.",
+                "action_required": "Create test cases to verify: (1) Writer Agent successfully receives approved test scenarios from Planner Agent, (2) Generation of clear and complete pre-conditions for each test case, (3) Translation of scenarios into granular, sequential test steps, (4) Definition of specific expected results for each test step, (5) Proper formatting and structure of generated test cases, (6) Traceability between test scenarios and generated test cases, (7) Quality and clarity of generated test case content, (8) Handling of complex or multi-step scenarios."
+            },
+            {
+                "acceptance_criterion": "Test Management Integration: The generated test cases are automatically formatted and published to the correct project suite in TestRail via API.",
+                "status": "Not Covered",
+                "gap_analysis": "No test cases exist to validate TestRail API integration, automatic formatting of generated test cases, or publishing to correct project suites. All retrieved test cases focus on functional testing of helpdesk dashboards and mobile device purchase flows, not on testing TestRail API integration functionality.",
+                "action_required": "Create test cases to verify: (1) Successful TestRail API connection and authentication, (2) Automatic formatting of AI-generated test cases to TestRail-compatible structure, (3) Correct mapping and publishing to target project suite, (4) Correct mapping to target section within suite, (5) Preservation of test case content (pre-conditions, steps, expected results) during publishing, (6) Handling of duplicate test cases, (7) Error handling for API failures or invalid project/suite identifiers, (8) Verification of published test cases in TestRail, (9) Rollback or retry mechanisms for failed publications."
+            },
+            {
+                "acceptance_criterion": "Human-in-the-Loop: The system flags ambiguous requirements and requires a QE sign-off before publishing cases to TestRail.",
+                "status": "Not Covered",
+                "gap_analysis": "No test cases exist to validate ambiguity detection, flagging mechanisms, QE review workflows, or sign-off requirements before publishing to TestRail. The retrieved test cases are focused on helpdesk dashboard metrics and StarHub mobile device purchase workflows, which do not involve validation of ambiguity detection or approval workflows in an AI-driven test case generation system.",
+                "action_required": "Create test cases to verify: (1) System successfully identifies and flags ambiguous requirements in user stories, (2) Ambiguity detection criteria and algorithms function correctly, (3) Flagged requirements are routed to QE for review, (4) QE review interface displays flagged requirements with context, (5) QE can approve or reject flagged test cases, (6) System prevents publishing to TestRail without QE sign-off for flagged cases, (7) Approved test cases proceed to TestRail publishing workflow, (8) Rejected test cases are sent back for refinement, (9) Audit trail of QE sign-offs and decisions, (10) Notification mechanisms for QE review requests."
+            }
+        ],
+        "partially_mapped_criteria": [],
+        "fully_mapped_criteria": [],
+        "test_case_improvements": []
+    }
+}
