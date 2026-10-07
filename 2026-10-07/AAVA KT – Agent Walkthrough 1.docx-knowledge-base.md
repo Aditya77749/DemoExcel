@@ -1,686 +1,786 @@
-# AAVA Agent Generation Workflow - Knowledge Transfer Session
+# AAVA KT – Agent Walkthrough Knowledge Base
 
 ## Document Metadata
-- **Session Date**: October 5, 2026
-- **Session Time**: 08:32 AM
+- **Session Date**: October 5, 2026, 08:32 AM
 - **Session Type**: Knowledge Transfer - Agent Walkthrough
-- **Facilitators**: Sowmya Sridhar, Kiruthika Ganesan, Aaditya Nayar
-- **Attendees**: Ansiya Thangal Kunju, Mohan R, Hariharan Krishnaraj, Rajasowmya K
-- **Application**: AAVA (AI-Assisted Agent Automation)
-- **Module**: Agent Generation Workflow for Knowledge Transfer Automation
+- **Facilitator**: Sowmya Sridhar
+- **Participants**: Ansiya Thangal Kunju, Kiruthika Ganesan, Aaditya Nayar, Mohan R, Hariharan Krishnaraj, Rajasowmya K
+- **Application**: AAVA (AI-Assisted Agent Generation Platform)
+- **Module**: Knowledge Transfer Automation Workflow
+- **Document Version**: 1.0
 
 ---
 
 ## Executive Summary
 
-This knowledge transfer session covered the AAVA Agent Generation Workflow, a four-agent system designed to automate knowledge transfer documentation. The workflow processes input files (transcripts, PPTs, text files) and generates structured Markdown documentation with gap analysis, coverage metrics, and recommendations. The system integrates with GitHub for version control and knowledge base management.
-
-**Key Capabilities:**
-- Multi-format input processing (PPT, TXT, PDF, DOCX)
-- Automated Markdown generation and GitHub upload
-- Content summarization
-- Domain file matching and retrieval
-- Gap analysis with coverage scoring
-- Knowledge transfer quality assessment
+This knowledge transfer session covered the AAVA agent generation workflow designed to automate knowledge transfer documentation and gap analysis. The system consists of a 4-agent pipeline that processes input files (transcripts, PPTs, documents), generates structured Markdown documentation, uploads to GitHub, performs domain-specific gap analysis, and produces comprehensive coverage reports. The workflow achieved 92% knowledge transfer coverage in testing and is being prepared for deployment in the Caresource healthcare domain project.
 
 ---
 
 ## Application Overview
 
+### System Name
+**AAVA Knowledge Transfer Automation Platform**
+
 ### Purpose
-The AAVA Agent Generation Workflow automates the knowledge transfer documentation process by:
-1. Converting various input formats into standardized Markdown files
-2. Generating comprehensive summaries
-3. Performing gap analysis against existing domain documentation
-4. Providing coverage metrics and recommendations
+Automate the creation, storage, and analysis of knowledge transfer documentation by processing meeting transcripts, presentations, and technical documents through an intelligent multi-agent workflow.
 
-### Target Use Case
-- **Primary**: Caresource healthcare domain knowledge transfer
-- **Secondary**: General enterprise knowledge base automation
-- **Scope**: Multi-tower application support with module-level documentation
+### Key Objectives
+1. Convert unstructured KT content into structured Markdown documentation
+2. Automatically store knowledge artifacts in GitHub repositories
+3. Perform domain-specific gap analysis against existing documentation
+4. Generate actionable coverage reports with follow-up recommendations
+5. Support multiple input formats (PPT, TXT, PDF, DOCX, transcripts)
 
 ---
 
-## System Architecture
+## Technical Architecture
 
-### Four-Agent Workflow
+### Core Pipeline Workflow
 
-#### Agent 1: File Ingestion and MD Generation
-**Function**: Input Processing and GitHub Upload
-- **Input Formats**: Transcript files, PPT, TXT, PDF, DOCX
-- **Processing**: Converts input to structured Markdown (.md) format
-- **Output**: Uploads .md file to GitHub repository
-- **Key Feature**: Dynamic content extraction and structuring
+The system implements a **4-stage agent workflow**:
 
-**Technical Details:**
-- Accepts multiple file formats
-- Extracts text content, tables, and structured data
-- Generates clean Markdown syntax
-- Commits to GitHub with automated folder structure (date-based)
+#### **Agent 1: File Ingestion & MD Generation**
+- **Input**: Transcript files, text files, PPT files, PDF documents
+- **Process**: 
+  - Extracts content from various file formats
+  - Converts to structured Markdown (.md) format
+  - Applies formatting and organization rules
+- **Output**: Generated .md file uploaded to GitHub
 
-#### Agent 2: Summarization
-**Function**: Content Summary Generation
-- **Input**: MD file from Agent 1
-- **Processing**: Creates concise summary of key points
-- **Output**: Summary uploaded to GitHub as separate file
-- **Execution**: Mandatory (not conditional)
+#### **Agent 2: Summarization & Upload**
+- **Input**: Output from Agent 1 (MD file content)
+- **Process**: 
+  - Creates executive summary of the content
+  - Generates topic-based breakdown
+  - Maintains key technical details
+- **Output**: Summary document uploaded to GitHub
+- **Note**: This agent runs unconditionally for all inputs, regardless of matching files
 
-**Key Characteristics:**
-- Runs for all inputs regardless of matching files
-- Generates bullet-point summaries
-- Preserves critical information
-- Optimized for quick reference
+#### **Agent 3: Domain File Discovery & Content Retrieval**
+- **Input**: GitHub repository path
+- **Process**: 
+  1. **Directory Listing**: Fetches complete directory structure from GitHub repo
+  2. **File Matching**: Identifies domain-relevant files (2-3 files typically match)
+  3. **Content Retrieval**: Reads file content from matched files
+  4. **Similarity Analysis**: Calculates similarity scores between files
+- **Output**: 
+  - List of matching domain files
+  - Retrieved file contents for gap analysis
+  - Returns "No matching file found" if no domain files exist
 
-#### Agent 3: Domain File Discovery and Content Retrieval
-**Function**: GitHub Repository Analysis and File Matching
-- **Process Flow**:
-  1. Lists complete directory structure of GitHub repository
-  2. Identifies domain-relevant files
-  3. Performs similarity analysis
-  4. Retrieves content from matching files
-  5. Prepares data for gap analysis
-
-**Technical Implementation:**
-```
-Sub-tasks:
-1. Directory Listing: Fetch all files from GitHub repo
-2. File Filtering: Select domain-relevant documents (2-3 files typically)
-3. Content Retrieval: Read file contents
-4. Similarity Analysis: Calculate match scores for File 1, File 2, File 3
-```
-
-**Output Example:**
-- Lists all repository files
-- Identifies 3 relatable files
-- Performs content retrieval and similarity scoring
-- Returns "No matching file found" if no domain match exists
-
-#### Agent 4: Gap Analysis and Reporting
-**Function**: Coverage Analysis and Gap Identification
+#### **Agent 4: Gap Analysis & Coverage Report**
 - **Input**: 
-  - Generated MD file (from Agent 1)
-  - Domain file content (from Agent 3)
-- **Processing**: Comparative analysis
-- **Output**: Comprehensive gap analysis report
-
-**Report Components:**
-1. Coverage Score (percentage)
-2. Coverage Matrix (Fully Covered, Partially Covered, Not Covered)
-3. Gap Identification (High/Medium/Low priority)
-4. Follow-up Questions
-5. Recommendations
-6. Detailed Topic Analysis
+  - Generated MD file from Agent 1
+  - Domain file contents from Agent 3
+- **Process**: 
+  - Compares input content against existing domain documentation
+  - Identifies coverage gaps
+  - Calculates coverage metrics
+  - Generates follow-up questions
+  - Assigns criticality levels
+- **Output**: Comprehensive Knowledge Transfer Coverage Analysis Report
 
 ---
 
-## Technical Implementation Details
+## System Components
 
-### Input File Formats
+### Input Layer
+- **Supported Formats**:
+  - PowerPoint Presentations (.ppt, .pptx)
+  - Text Files (.txt)
+  - Transcript Files (.tsi - Microsoft Teams format)
+  - PDF Documents (.pdf) - with image extraction capability
+  - Word Documents (.doc, .docx)
+  - Excel Files (.xls, .xlsx) - planned
 
-#### Supported Formats
-1. **PPT (PowerPoint Presentations)**
-   - Status: Tested
-   - Processing: Content extraction, slide-by-slide analysis
-   
-2. **TXT (Text Files)**
-   - Status: Tested
-   - Processing: Direct text ingestion
+### Processing Engine
+- **Content Analysis**: Dynamic content extraction and structuring
+- **Format Conversion**: Multi-format to Markdown transformation
+- **LLM Integration**: Claude AI for intelligent processing
+- **Image Processing**: Base64 encoding for PDF images (from Essilor codebase)
 
-3. **Transcript Files**
-   - Extension: `.tsi` (Microsoft-defined format, not `.txt`)
-   - Source: Microsoft Teams recordings
-   - Note: Must handle native transcript format without conversion
+### GitHub Integration Layer
+- **Repository Management**: Automated file commits and updates
+- **Access Control**: Token-based authentication
+- **Version Control**: Maintains document history
+- **Organization**: Application-level folder structure
 
-4. **PDF (Portable Document Format)**
-   - Status: Supported with considerations
-   - Challenges: 
-     - Image extraction required
-     - Table detection needed
-     - Complex layout handling
-   - Solution: JSON-based extraction and storage
-
-5. **DOCX (Word Documents)**
-   - Status: Accepted
-   - Processing: Standard document parsing
-
-#### PDF Processing Considerations
-**Special Requirements:**
-- Image detection and extraction
-- Table structure preservation
-- Multi-format content handling
-- Recommended: Convert to JSON intermediate format before processing
-
-**Implementation Note:**
-```
-PDF Processing Steps:
-1. Detect content types (text, images, tables)
-2. Extract each type separately
-3. Store in JSON structure
-4. Read and process from JSON
-```
-
-### GitHub Integration
-
-#### Repository Structure
-- **Organization**: Application-level folders
-- **Date-based Folders**: Automatic YYYY-MM-DD structure
-- **File Naming**: `<application-name>-knowledge-base.md`
-
-#### Upload Process
-1. Agent 1: Uploads input as .md file
-2. Agent 2: Uploads summary file
-3. Version Control: Automatic commit with descriptive messages
-4. Access: GitHub Personal Access Token authentication
-
-#### Repository Example
-- Multiple files per application
-- 2-3 domain-specific files per module
-- Hierarchical organization for easy retrieval
+### Output Layer
+- **Markdown Documentation**: Structured KB files
+- **Summary Documents**: Executive summaries
+- **Coverage Reports**: Gap analysis with metrics
+- **Follow-up Artifacts**: Actionable recommendations
 
 ---
 
-## Gap Analysis Report Structure
+## Knowledge Transfer Coverage Analysis Report
 
-### 1. Coverage Score
-**Format**: Percentage (e.g., 92%)
-**Calculation**: Based on topic matching between input and domain files
+### Report Structure
 
-### 2. Coverage Matrix
+The generated report includes the following sections:
+
+#### 1. **Coverage Score**
+- Overall percentage (e.g., 92% coverage achieved)
+- Breakdown by coverage level:
+  - **Fully Covered**: Topics completely documented
+  - **Partially Covered**: Topics with incomplete information
+  - **Not Covered**: Missing topics
+
+#### 2. **Coverage Matrix**
 
 | Topic | Criticality | Coverage Status | Transcript Evidence |
 |-------|-------------|-----------------|---------------------|
-| Token-based Model Extraction | High | Fully Covered | [Evidence details] |
-| Authentication | Medium | Partially Covered | [Evidence details] |
-| Technical Architecture | Medium | Partially Covered | [Evidence details] |
+| Token-based Authentication | High | Fully Covered | Detailed implementation discussed |
+| Model Extraction | Medium | Partially Covered | Basic concepts covered, specifics missing |
+| Technology Stack Mapping | Medium | Partially Covered | Python mentioned, versions not specified |
 
-**Coverage Levels:**
-- **Fully Covered**: Complete information present
-- **Partially Covered**: Incomplete or missing details
-- **Not Covered**: Topic not addressed
+**Criticality Levels**:
+- **High**: Critical for system operation or business continuity
+- **Medium**: Important but not immediately critical
+- **Low**: Nice-to-have or supplementary information
 
-### 3. Gap Analysis
+#### 3. **Gap Analysis**
 
-#### Gap Structure
-Each gap includes:
-- **Gap ID**: Sequential numbering
-- **Category**: Technical Architecture, Implementation, etc.
-- **Priority**: High/Medium/Low
-- **Current State**: What was covered in the session
-- **Specific Gap**: What is missing
-- **Risk Assessment**: Using RAID framework
-  - **R**isk
-  - **A**ssumption
-  - **I**ssue
-  - **D**ependency
+**Format**:
+```
+Gap [Number]: [Gap Title]
+- Criticality: [High/Medium/Low]
+- Current State: [Description of what was covered]
+- Specific Gap: [What is missing]
+- Risk Assessment: [Operational/Technical/Business risk]
+- Follow-up Question: [Actionable question to address gap]
+```
 
-**Example Gap:**
+**Example Gap**:
 ```
 Gap 1: Technical Architecture - Technology Stack Mapping
-- Priority: Medium
-- Current State: Session covered Python-based automation
-- Specific Gap: Technologies not explicitly mapped to architecture
-- Risk: Operational risk (medium)
-- Follow-up: Provide detailed technology stack mapping
+- Criticality: Medium
+- Current State: Session identified Python-based automation
+- Specific Gap: Technologies not explicitly mapped to architecture components
+- Risk Assessment: 
+  - Operational Risk: Medium
+  - Technical Risk: Medium
+- Follow-up Question: Please provide detailed technology stack mapping for each component
 ```
 
-### 4. Risk Assessment Framework
+#### 4. **Risk Assessment Framework**
 
-#### RAID Methodology
-**Recommended Approach**: Use RAID for comprehensive risk analysis
-
-**Components:**
-- **Risk**: Potential issues and their impact
-- **Assumption**: Dependencies on unverified conditions
+The system uses **RAID (Risk, Assumption, Issue, Dependency)** methodology:
+- **Risk**: Potential problems that may occur
+- **Assumption**: Conditions assumed to be true
 - **Issue**: Current problems requiring resolution
-- **Dependency**: External factors affecting implementation
+- **Dependency**: External factors affecting completion
 
-**Risk Categories:**
-- Technical Risk
-- Operational Risk
-- Business Risk
+#### 5. **Detailed Topic Analysis**
 
-### 5. Criticality Levels
+Categorizes all topics into:
+- **Fully Covered Topics**: Complete documentation available
+- **Partially Covered Topics**: Incomplete or missing details
+- **Evidence Quality**: Assessment of transcript clarity and completeness
 
-#### Recommended Classification
-**Three-tier System**: High, Medium, Low
+#### 6. **Recommendations**
 
-**Rationale**: 
-- Avoids ambiguity of two-tier (High/Medium) systems
-- Provides clear differentiation
-- Enables better prioritization
+Actionable suggestions prioritized by:
+- **Immediate Actions**: High-priority items
+- **Short-term Actions**: Medium-priority items
+- **Low Priority Observations**: Items requiring no immediate action
 
-**Alternative**: Use average/aggregate scoring instead of binary classification
+#### 7. **Conclusion**
 
-### 6. Follow-up Questions
-- Specific queries for clarification
-- Action items for knowledge gaps
-- Technical details requiring elaboration
-
-### 7. Recommendations
-**Format**: Bullet points for clarity
-- Immediate actions
-- Medium-term improvements
-- Long-term enhancements
-
-### 8. Detailed Topic Analysis
-
-#### Fully Covered Topics
-- Core pipeline workflow
-- System objectives
-- GitHub uploader tool configuration
-
-#### Partially Covered Topics
-- Component diagrams (missing Python version specifics)
-- Technology stack details
-- Architecture layer mapping
-
-#### Not Covered Topics
-- [Listed based on domain file comparison]
+Summary statement with:
+- Overall coverage percentage
+- Session effectiveness assessment
+- Key achievements highlighted
 
 ---
 
-## Report Formatting Guidelines
+## Implementation Guidelines
 
-### Transcript Evidence Section
-**Current Approach**: Direct quotes from transcript
-**Recommended Enhancement**: AI-summarized evidence
-- Use Microsoft Teams AI summary format
-- Maintain meaning while shortening content
-- Convert to active voice (not passive)
-- Create bullet-point summaries
+### GitHub Repository Configuration
 
-**Example Transformation:**
+**Repository Structure**:
 ```
-Before (Verbose):
-"The knowledge base automation pipeline implemented a three-stage workflow 
-consisting of file integration, dynamic extraction, and Github synchronization 
-with complete details breakdown provided with subprocess..."
-
-After (Concise):
-"Three-stage workflow: file integration → dynamic extraction → GitHub sync"
+repository-root/
+├── application-name/
+│   ├── YYYY-MM-DD/
+│   │   ├── [filename]-knowledge-base.md
+│   │   ├── [filename]-summary.md
+│   │   └── [filename]-coverage-report.md
+│   └── domain-files/
+│       ├── domain-doc-1.md
+│       ├── domain-doc-2.md
+│       └── domain-doc-3.md
 ```
 
-### Section Naming Conventions
-**Improvements Suggested:**
-- "Specific Gap" → "Identified Gap"
-- "All Fully Covered" → "Fully Covered" or "Covered"
-- Remove "No action required" statements
-- Replace with "Action Priority: Low"
+**Access Requirements**:
+- GitHub Personal Access Token
+- Repository write permissions
+- Branch access (default: main)
 
-### Content Organization
-**Recommended Structure:**
-1. Executive Summary (bullet points)
-2. Coverage Matrix (table format)
-3. Gap Analysis (structured sections)
-4. Recommendations (bullet points)
-5. Conclusion (brief paragraph)
+### Execution Workflow
 
-**Remove/Consolidate:**
-- Knowledge Transfer Quality Assessment (redundant)
-- Duplicate summary sections
-- Agent-generated judgments ("no action required")
+**Step-by-Step Process**:
+
+1. **Input Reception**
+   - User provides input file (transcript/PPT/document)
+   - System validates file format
+   - Extracts content based on file type
+
+2. **MD Generation (Agent 1)**
+   - Converts content to Markdown
+   - Applies formatting rules
+   - Commits to GitHub with timestamp folder
+
+3. **Summarization (Agent 2)**
+   - Generates executive summary
+   - Creates topic breakdown
+   - Uploads summary to GitHub
+
+4. **Domain Discovery (Agent 3)**
+   - Lists GitHub repository directories
+   - Identifies matching domain files
+   - Retrieves file contents
+   - Performs similarity analysis
+
+5. **Gap Analysis (Agent 4)**
+   - Compares input against domain files
+   - Calculates coverage metrics
+   - Identifies gaps and risks
+   - Generates follow-up questions
+   - Produces final report
+
+6. **Output Delivery**
+   - Returns GitHub file links
+   - Provides coverage report
+   - Lists actionable recommendations
 
 ---
 
-## LLM Configuration
+## Testing Results
 
-### Current Setup
-- **Model**: Claude (Anthropic)
-- **Platform**: AAVA (AI-Assisted Agent Automation)
-- **Alternative**: ChatGPT (OpenAI)
+### Test Scenarios Completed
 
-### Agent Prompting
-**Current State**: General instructions without strict rubrics
-**Recommendation**: Develop formal rubrics for:
-- Coverage scoring methodology
-- Gap prioritization criteria
-- Risk assessment guidelines
-- Output formatting standards
+1. **PowerPoint Input Test**
+   - Input: Technical presentation on KB automation
+   - Result: Successfully generated MD file with component diagrams
+   - Coverage: 92% against existing domain files
 
----
+2. **Transcript Input Test**
+   - Input: Meeting transcript (dummy data)
+   - Result: Successfully processed and summarized
+   - Gap Analysis: Identified 2 medium-risk gaps, 1 low-priority observation
 
-## Testing and Validation
+### Sample Output Metrics
 
-### Test Inputs Used
-1. **PPT File**: Agent workflow presentation
-2. **Transcript File**: Dummy meeting transcript
-3. **Content Scope**: Knowledge base automation pipeline
-
-### Test Results
 - **Coverage Score**: 92%
-- **Gaps Identified**: 2 medium priority, 1 low priority
-- **File Matching**: 3 relevant domain files found
-- **Summary Generation**: Successful
-
-### Limitations Identified
-1. **Content Complexity**: Test data less complex than healthcare domain
-2. **Image Handling**: Not fully implemented for PDFs
-3. **Rubrics**: Need formal scoring criteria
-4. **Format Standardization**: Requires client KT document templates
+- **Fully Covered Topics**: 85%
+- **Partially Covered Topics**: 15%
+- **High-Risk Gaps**: 0
+- **Medium-Risk Gaps**: 2
+- **Low-Priority Observations**: 1
 
 ---
 
-## Integration with Caresource
+## Configuration Parameters
 
-### Requirements
-1. **Domain Specificity**: Healthcare-focused content
-2. **Multiple Towers**: Support for various application modules
-3. **KT Document Format**: Need existing templates from client
-4. **Screenshot Handling**: Application UI captures in documentation
+### Supported File Formats
 
-### Challenges
-1. **No Existing Documentation**: Some towers starting fresh
-2. **Complex Domain**: Healthcare terminology and workflows
-3. **Multi-session KT**: Consolidation of multiple sessions required
-4. **Image Content**: Screenshots not captured in transcripts
+| Format | Extension | Status | Notes |
+|--------|-----------|--------|-------|
+| PowerPoint | .ppt, .pptx | ✅ Tested | Fully supported |
+| Text | .txt | ✅ Tested | Fully supported |
+| Transcript | .tsi | ⚠️ Planned | Microsoft Teams format |
+| PDF | .pdf | ✅ Supported | Image extraction via Base64 |
+| Word | .doc, .docx | ✅ Supported | Content extraction ready |
+| Excel | .xls, .xlsx | 🔄 In Progress | Planned support |
 
-### Proposed Solutions
+### LLM Configuration
 
-#### Workflow 1: Single Session Processing (Current)
-- Process individual KT session
-- Generate MD file and summary
-- Perform gap analysis
-- Upload to GitHub
+- **Primary Model**: Claude AI
+- **Use Case**: Content analysis, summarization, gap detection
+- **Alternative**: ChatGPT (for comparison)
+- **Platform**: AAVA (primary), Microsoft 365 Copilot (secondary)
 
-#### Workflow 2: Multi-session Consolidation (Future)
-**Purpose**: Create comprehensive KT document from multiple sessions
+---
 
-**Process:**
-1. Identify all MD files for specific application/module
-2. Read content from all session files
-3. Consolidate into single comprehensive document
-4. Follow client KT document format
-5. Generate final application-level KT document
+## Key Features
 
-**Example Scenario:**
-```
-Claims Module KT:
-- Session 1: Claims Creation (MD file 1)
-- Session 2: Claims Adjudication (MD file 2)
-- Session 3: Claims Settlement (MD file 3)
-- Session 4: Claims Reporting (MD file 4)
-→ Consolidated: Claims Module Complete KT Document
-```
+### 1. **Dynamic Content Extraction**
+- Automatically detects and extracts content from multiple formats
+- Handles text, tables, and images
+- Preserves formatting and structure
+
+### 2. **Intelligent Summarization**
+- AI-powered summary generation
+- Maintains technical accuracy
+- Converts passive to active voice for clarity
+- Bullet-point format for readability
+
+### 3. **Domain-Specific Matching**
+- Identifies relevant existing documentation
+- Calculates similarity scores
+- Retrieves only pertinent files for analysis
+
+### 4. **Comprehensive Gap Analysis**
+- Multi-dimensional coverage assessment
+- Risk-based prioritization using RAID framework
+- Actionable follow-up questions
+- Evidence-based recommendations
+
+### 5. **Automated GitHub Integration**
+- Seamless file commits
+- Organized folder structure by date
+- Version control maintenance
+- Accessible file links
+
+### 6. **Flexible Output Formats**
+- Markdown for knowledge bases
+- Structured reports for management
+- Summary documents for quick reference
+- Detailed analysis for technical teams
+
+---
+
+## Recommendations & Improvements
+
+### Immediate Actions (High Priority)
+
+1. **Define Criticality Rubrics**
+   - Establish clear criteria for High/Medium/Low classification
+   - Consider using High/Medium/Low or Average scale (avoid thin-line differences)
+   - Apply consistent logic across coverage status and gap analysis
+
+2. **Implement RAID Framework**
+   - Replace current risk assessment with RAID methodology
+   - Add Risk, Assumption, Issue, Dependency columns
+   - Merge "Specific Gap" into RAID table for consolidated view
+
+3. **Enhance Transcript Evidence**
+   - Use AI summarization for evidence column
+   - Convert to concise, active-voice statements
+   - Avoid contradictions (e.g., "missing" in "evidence")
+
+4. **Standardize Terminology**
+   - Change "All Fully Covered" to "Fully Covered"
+   - Use "Identified Gap" instead of "Specific Gap"
+   - Replace "No action required" with "Action Priority: Low"
+
+5. **Optimize Report Structure**
+   - Remove "Knowledge Transfer Quality Assessment" section (redundant)
+   - Keep Recommendations and Conclusion
+   - Convert summary paragraphs to bullet points for readability
+
+### Short-term Actions (Medium Priority)
+
+6. **Obtain Caresource KT Document Templates**
+   - Contact Radhika for existing KT document formats
+   - Align output structure with client standards
+   - Incorporate healthcare domain-specific sections
+
+7. **Enhance PDF Processing**
+   - Implement image detection and extraction
+   - Convert images to Base64 for AI processing
+   - Handle tables and complex layouts
+   - Test with Essilor PDF reading code
+
+8. **Support Native Transcript Format**
+   - Accept .tsi (Microsoft Teams) format directly
+   - Avoid conversion to .txt to preserve metadata
+   - Handle large transcript files efficiently
+
+9. **Add Screenshot Capability**
+   - Explore adding application screenshots to KT documents
+   - Investigate video-to-text conversion for visual content
+   - Check with Lata's team for existing solutions
+
+10. **Create Consolidated KT Workflow**
+    - Develop second workflow to merge multiple MD files
+    - Generate comprehensive KT document per application/module
+    - Support multi-session KT consolidation (e.g., 4-5 sessions into one document)
+
+### Low Priority Observations
+
+11. **Explore Microsoft 365 Copilot**
+    - Parallel development in Copilot for Caresource RFP
+    - Compare ease of implementation vs. AAVA
+    - Evaluate which platform delivers better results
+
+12. **Test with Real Healthcare Content**
+    - Obtain sample Caresource documentation
+    - Test with domain-specific terminology
+    - Validate coverage analysis accuracy
+
+13. **Add Excel Support**
+    - Extend file format support to spreadsheets
+    - Handle tabular data extraction
+    - Integrate with existing workflow
+
+---
+
+## Technical Considerations
+
+### PDF Processing Challenges
+
+**Issue**: PDFs can contain images, tables, and complex layouts that require special handling.
+
+**Solution**:
+- Use existing Essilor codebase for PDF content extraction
+- Implement image detection and Base64 conversion
+- Extract and store content in JSON format before processing
+- Additional testing required for PDF evaluation
+
+### Transcript Format Handling
+
+**Issue**: Microsoft Teams transcripts use .tsi extension, not .txt.
+
+**Solution**:
+- Accept native .tsi format without conversion
+- Preserve metadata and timestamps
+- Handle large transcript files without size limitations
+
+### Image and Screenshot Integration
+
+**Challenge**: KT documents often include application screenshots and workflow diagrams.
+
+**Current State**: 
+- AI can generate text-based diagrams (as seen in test output)
+- Screenshots from videos not captured in transcripts
+
+**Proposed Solution**:
+- Manual screenshot addition as interim solution
+- Explore video-to-image extraction tools
+- Investigate AI-powered diagram generation from descriptions
+
+### Orchestration Requirements
+
+For complex scenarios (images, videos, multiple formats), orchestration layer needed:
+- Cannot be handled by simple workflow
+- Requires AAVA orchestration capabilities
+- May need code integration from previous projects (Essilor, Jira contextualization)
+
+---
+
+## Use Cases
+
+### Use Case 1: New Application Onboarding
+
+**Scenario**: Caresource onboarding for new tower (e.g., IVR) with no existing documentation.
+
+**Workflow**:
+1. Day 1: KT session recorded → Transcript generated
+2. Agent processes transcript → No matching domain files found
+3. System generates MD file and summary → Uploaded to GitHub
+4. Day 2: Second KT session on different topic
+5. Agent finds previous day's MD file → Performs gap analysis
+6. Days 3-5: Additional sessions continue building knowledge base
+7. Final: Consolidation workflow merges all MD files into comprehensive KT document
+
+**Expected Outcome**: Complete application documentation from zero baseline.
+
+### Use Case 2: Existing Application Knowledge Gap Analysis
+
+**Scenario**: Claims module with existing documentation, new KT session to update knowledge.
+
+**Workflow**:
+1. Input: New KT transcript on claims adjudication
+2. Agent 3 discovers 3 existing domain files on claims
+3. Similarity analysis performed
+4. Gap analysis identifies: 92% coverage, 2 medium-risk gaps
+5. Report generated with specific follow-up questions
+6. Team addresses gaps in next session
+
+**Expected Outcome**: Incremental knowledge improvement with measurable metrics.
+
+### Use Case 3: Multi-Format Documentation Consolidation
+
+**Scenario**: Mixed inputs (PPT from vendor, transcript from meeting, PDF documentation).
+
+**Workflow**:
+1. Input 1: Vendor PPT on technical architecture
+2. Input 2: Meeting transcript discussing implementation
+3. Input 3: PDF with system diagrams
+4. All three processed through Agent 1 → Separate MD files
+5. Agent 3 identifies all three as related
+6. Agent 4 performs cross-document gap analysis
+7. Consolidation workflow merges into single comprehensive document
+
+**Expected Outcome**: Unified knowledge base from disparate sources.
+
+---
+
+## Integration Points
+
+### GitHub Integration
+- **Authentication**: Personal Access Token (PAT)
+- **Repository**: Configurable owner and name
+- **Branch**: Default to 'main', configurable
+- **Folder Structure**: Auto-generated date-based folders (YYYY-MM-DD)
+- **File Naming**: `[input-filename]-knowledge-base.md`
+
+### AI/LLM Integration
+- **Primary**: Claude AI via AAVA platform
+- **Secondary**: ChatGPT for comparison
+- **Future**: Microsoft 365 Copilot integration
+
+### File Processing Integration
+- **PDF**: Essilor codebase for content extraction
+- **Images**: Base64 encoding from Jira contextualization project
+- **Transcripts**: Native Microsoft Teams format support
+- **Zip Files**: SLR agent for multi-file processing
+
+---
+
+## Success Metrics
+
+### Quantitative Metrics
+- **Coverage Score**: Target >90% for effective KT
+- **Processing Time**: <5 minutes for standard transcript
+- **Accuracy**: >95% content extraction accuracy
+- **Gap Detection**: 100% identification of missing critical topics
+
+### Qualitative Metrics
+- **Report Clarity**: Stakeholder feedback on readability
+- **Actionability**: Percentage of follow-up questions addressed
+- **Adoption**: Number of teams using the workflow
+- **Client Satisfaction**: Caresource acceptance and feedback
+
+---
+
+## Known Limitations
+
+1. **Format Support**: Excel files not yet fully tested
+2. **Image Processing**: Requires orchestration layer, not in simple workflow
+3. **Video Processing**: No direct video-to-text conversion capability
+4. **Rubrics**: Criticality and priority rubrics not yet formalized
+5. **Client Templates**: Awaiting Caresource-specific KT document format
+6. **Consolidation**: Multi-session consolidation workflow not yet implemented
+7. **Screenshot Integration**: Manual process, not automated
 
 ---
 
 ## Future Enhancements
 
-### 1. Video/Audio to Text Conversion
-**Requirement**: Process KT recordings without transcripts
-**Status**: Not currently implemented
-**Action**: Check with Lata's team for existing solutions
-**Use Case**: Startup team with multiple recordings lacking transcripts
+### Phase 1 (Immediate - Next 2 Weeks)
+- Implement all recommendations from review session
+- Obtain and integrate Caresource KT document template
+- Formalize criticality rubrics (High/Medium/Low definitions)
+- Implement RAID framework for risk assessment
+- Optimize report formatting (bullet points, active voice)
 
-### 2. Image and Diagram Handling
-**Requirements:**
-- Screenshot extraction from PDFs
-- Workflow diagram generation
-- Architecture diagram inclusion
-- Application UI captures
+### Phase 2 (Short-term - 1 Month)
+- Develop consolidation workflow for multi-session KT
+- Enhance PDF processing with image extraction
+- Add native .tsi transcript support
+- Test with real Caresource healthcare domain content
+- Parallel development in Microsoft 365 Copilot
 
-**Technical Approach:**
-- Base64 encoding for images
-- Image-to-text conversion using AI
-- Diagram generation from text descriptions
-- Manual screenshot insertion workflow
+### Phase 3 (Medium-term - 2-3 Months)
+- Implement video-to-text conversion capability
+- Add screenshot extraction from video recordings
+- Full Excel file support
+- Automated diagram generation from descriptions
+- Advanced orchestration for complex scenarios
 
-**Reference**: Jira contextualization project (image handling code available)
-
-### 3. Excel File Support
-**Requirement**: Process Excel-based documentation
-**Status**: Under consideration
-**Use Case**: SSML agent content reading
-
-### 4. Structured Output Format
-**Requirement**: Client-specific KT document templates
-**Action Items:**
-- Obtain Caresource KT document samples
-- Develop rubrics based on client format
-- Train agents with structured templates
-- Validate output against standards
-
-### 5. Microsoft Copilot Integration
-**Status**: Parallel development track
-**Rationale**: 
-- Caresource RFP may prefer Copilot over AAVA
-- M365 integration benefits
-- Easier implementation for certain features
-
-**Decision Pending**: AAVA vs. Copilot for final deployment
+### Phase 4 (Long-term - 6 Months)
+- Multi-language support for global teams
+- Real-time KT session processing
+- Interactive gap analysis dashboard
+- Integration with project management tools
+- AI-powered follow-up question answering
 
 ---
 
-## Implementation Recommendations
+## Stakeholder Feedback Summary
 
-### Immediate Actions (High Priority)
+### Mohan R - Feedback & Recommendations
 
-1. **Implement RAID Framework**
-   - Update risk assessment methodology
-   - Add RAID columns to gap analysis
-   - Include gap identification in risk table
+**Positive**:
+- Appreciated comprehensive workflow design
+- Acknowledged good effort and structure
 
-2. **Refine Criticality Levels**
-   - Adopt three-tier system (High/Medium/Low)
-   - Define clear criteria for each level
-   - Apply consistently across all gaps
+**Key Recommendations**:
+1. Clarify High/Medium/Low criticality definitions (avoid thin-line differences)
+2. Implement RAID framework for risk assessment
+3. Simplify transcript evidence using AI summarization
+4. Standardize terminology throughout report
+5. Remove redundant sections (Knowledge Transfer Quality Assessment)
+6. Convert summary paragraphs to bullet points
+7. Consider merging "Specific Gap" into risk assessment table
 
-3. **Enhance Transcript Evidence**
-   - Implement AI summarization
-   - Convert to active voice
-   - Create concise bullet points
+### Hariharan Krishnaraj - Feedback & Recommendations
 
-4. **Update Section Naming**
-   - "Identified Gap" instead of "Specific Gap"
-   - "Fully Covered" instead of "All Fully Covered"
-   - Remove agent judgments on actions
+**Positive**:
+- Good job on initial implementation
+- Workflow structure makes sense
 
-5. **Format Summary Section**
-   - Convert to bullet points
-   - Remove redundant paragraphs
-   - Maintain executive summary style
+**Key Recommendations**:
+1. Obtain real Caresource KT document for template alignment
+2. Test with healthcare domain-specific content
+3. Address screenshot and image integration challenges
+4. Develop consolidation workflow for multi-session KT
+5. Explore video-to-text conversion capabilities
+6. Consider complexity of healthcare domain vs. current test data
+7. Ensure format flexibility for client requirements
 
-### Medium-Term Actions
+### Ansiya Thangal Kunju - Direction
 
-1. **Obtain Client Templates**
-   - Contact Radhika for Caresource KT documents
-   - Review existing format standards
-   - Develop rubrics based on templates
-
-2. **Enhance PDF Processing**
-   - Implement image extraction
-   - Add table detection
-   - Create JSON intermediate format
-
-3. **Support Native Transcript Format**
-   - Handle `.tsi` extension
-   - Avoid TXT conversion
-   - Process large transcripts efficiently
-
-4. **Remove Redundant Sections**
-   - Eliminate "Knowledge Transfer Quality Assessment"
-   - Consolidate duplicate summaries
-   - Streamline report structure
-
-### Long-Term Actions
-
-1. **Multi-session Consolidation Workflow**
-   - Design Workflow 2 architecture
-   - Implement MD file aggregation
-   - Create comprehensive document generator
-
-2. **Video/Audio Processing**
-   - Explore conversion solutions
-   - Integrate with existing agents
-   - Test with actual KT recordings
-
-3. **Image and Diagram Support**
-   - Implement screenshot handling
-   - Add diagram generation
-   - Support manual image insertion
-
-4. **Platform Decision**
-   - Evaluate AAVA vs. Copilot
-   - Consider client preferences
-   - Plan migration if needed
+**Guidance**:
+1. Develop proper rubrics for Caresource-specific requirements
+2. Parallel development in both AAVA and Copilot
+3. Ground-level testing with available RFP documents
+4. Check with Lata's team for video processing capabilities
+5. Leverage existing code from Essilor and Jira projects
+6. Focus on Copilot if Caresource RFP requires it
 
 ---
 
-## Key Decisions and Action Items
+## Action Items
 
-### Decisions Made
-1. ✅ Four-agent workflow architecture approved
-2. ✅ GitHub as primary storage repository
-3. ✅ Mandatory summary generation for all inputs
-4. ✅ RAID framework for risk assessment
-5. ✅ Three-tier criticality system (High/Medium/Low)
+### For Development Team
 
-### Action Items
+| Priority | Action Item | Owner | Status |
+|----------|-------------|-------|--------|
+| High | Define criticality rubrics (High/Medium/Low) | Kiruthika | Pending |
+| High | Implement RAID framework in gap analysis | Sowmya | Pending |
+| High | Optimize transcript evidence with AI summarization | Aaditya | Pending |
+| High | Standardize report terminology | Team | Pending |
+| High | Remove redundant report sections | Sowmya | Pending |
+| Medium | Obtain Caresource KT document template | Hariharan/Radhika | In Progress |
+| Medium | Enhance PDF processing with image extraction | Aaditya | Pending |
+| Medium | Add native .tsi transcript support | Aaditya | Pending |
+| Medium | Develop consolidation workflow | Kiruthika | Pending |
+| Low | Explore video-to-text conversion | Hariharan/Lata's team | Pending |
+| Low | Test with real healthcare content | Team | Pending |
+| Low | Parallel Copilot development | Team | In Progress |
 
-| Item | Owner | Priority | Status |
-|------|-------|----------|--------|
-| Implement RAID framework in gap analysis | Development Team | High | Pending |
-| Update criticality classification to 3-tier | Development Team | High | Pending |
-| Enhance transcript evidence with AI summary | Development Team | Medium | Pending |
-| Obtain Caresource KT document templates | Hariharan/Radhika | High | In Progress |
-| Refine section naming conventions | Development Team | Medium | Pending |
-| Remove "Knowledge Transfer Quality Assessment" | Development Team | Low | Pending |
-| Format summary as bullet points | Development Team | Medium | Pending |
-| Research video-to-text conversion | Hariharan/Lata's Team | Medium | Pending |
-| Implement PDF image extraction | Development Team | Medium | Pending |
-| Support native transcript format (.tsi) | Development Team | High | Pending |
-| Design multi-session consolidation workflow | Architecture Team | Medium | Pending |
-| Evaluate Copilot vs AAVA for deployment | Leadership | High | In Progress |
+### For Stakeholders
 
-### Follow-up Questions
-1. What is the exact transcript file extension from Microsoft Teams?
-2. Can Radhika provide sample Caresource KT documents?
-3. Does Lata's team have video-to-text conversion agents?
-4. What is the final platform decision: AAVA or Copilot?
-5. Are there existing rubrics for KT document quality assessment?
-
----
-
-## Technical Specifications
-
-### GitHub Configuration
-- **Repository Owner**: Configurable
-- **Repository Name**: Configurable
-- **Branch**: main (default)
-- **Authentication**: Personal Access Token
-- **Folder Structure**: Date-based (YYYY-MM-DD)
-- **File Naming**: `<application>-knowledge-base.md`
-
-### Agent Configuration
-- **Agent 1**: File Ingestion and MD Generation
-- **Agent 2**: Summarization
-- **Agent 3**: Domain File Discovery
-- **Agent 4**: Gap Analysis and Reporting
-
-### LLM Settings
-- **Primary Model**: Claude (Anthropic)
-- **Alternative**: ChatGPT (OpenAI)
-- **Platform**: AAVA / Microsoft Copilot (under evaluation)
+| Priority | Action Item | Owner | Status |
+|----------|-------------|-------|--------|
+| High | Share Caresource KT document template | Radhika | Pending |
+| Medium | Provide sample healthcare domain content | Nidhi/Radhika | Pending |
+| Medium | Clarify AAVA vs. Copilot preference for RFP | Vijay | Pending |
+| Low | Check video-to-text agent availability | Lata's team | Pending |
 
 ---
 
 ## Glossary
 
-- **AAVA**: AI-Assisted Agent Automation
+- **AAVA**: AI-Assisted Agent Generation Platform
 - **KT**: Knowledge Transfer
-- **MD**: Markdown
-- **RAID**: Risk, Assumption, Issue, Dependency
+- **MD**: Markdown file format
+- **RAID**: Risk, Assumption, Issue, Dependency framework
+- **LLM**: Large Language Model
 - **RAG**: Retrieval-Augmented Generation
 - **PPT**: PowerPoint Presentation
-- **PDF**: Portable Document Format
-- **LLM**: Large Language Model
-- **M365**: Microsoft 365
-- **Copilot**: Microsoft Copilot
+- **TSI**: Microsoft Teams transcript format
+- **Base64**: Binary-to-text encoding scheme
+- **GitHub PAT**: Personal Access Token for GitHub authentication
+- **Copilot**: Microsoft 365 Copilot AI assistant
+- **RFP**: Request for Proposal
 
 ---
 
-## References and Resources
+## References
 
 ### Related Projects
-- **Jira Contextualization**: Image handling and Base64 encoding
-- **Essilor Project**: PDF content reading implementation
-- **SSML Agent**: Excel file processing
+1. **Essilor Project**: PDF content extraction and processing
+2. **Jira Contextualization**: Image to Base64 conversion and AI summarization
+3. **SLR Agent**: Zip file processing and summarization workflow
 
-### Team Contacts
-- **Sowmya Sridhar**: Lead Developer
-- **Kiruthika Ganesan**: Developer
-- **Aaditya Nayar**: Developer
-- **Ansiya Thangal Kunju**: Project Coordinator
-- **Mohan R**: Technical Reviewer
-- **Hariharan Krishnaraj**: Domain Expert
-- **Rajasowmya K**: Business Analyst
-
-### External Stakeholders
-- **Radhika**: Caresource KT Document Owner
-- **Rishikesh**: Caresource Account Team
-- **Nidhi**: Document Repository Contact
-- **Lata's Team**: AI/ML Specialists
-- **Vijay**: Leadership/Decision Maker
-
----
-
-## Appendix
-
-### Sample Output Structure
-
-```markdown
-# Knowledge Transfer Coverage Analysis Report
-
-## Coverage Score: 92%
-
-## Coverage Matrix
-| Topic | Criticality | Coverage Status | Transcript Evidence |
-|-------|-------------|-----------------|---------------------|
-| Core Pipeline Workflow | High | Fully Covered | Three-stage workflow implemented |
-| Token-based Model | High | Fully Covered | Authentication mechanism discussed |
-| Technical Architecture | Medium | Partially Covered | Python stack mentioned, details missing |
-
-## Gap Analysis
-
-### Gap 1: Technical Architecture - Technology Stack Mapping
-- **Priority**: Medium
-- **Current State**: Python-based automation discussed
-- **Identified Gap**: Technology stack not mapped to architecture layers
-- **Risk Assessment (RAID)**:
-  - Risk: Operational (Medium)
-  - Assumption: Standard Python libraries used
-  - Issue: None currently
-  - Dependency: Architecture documentation
-- **Follow-up**: Provide detailed technology stack with version specifics
-
-### Gap 2: [Additional gaps...]
-
-## Recommendations
-- Immediate: Document technology stack with versions
-- Medium-term: Create architecture layer diagrams
-- Long-term: Establish documentation standards
-
-## Summary
-- Knowledge transfer session achieved 92% coverage
-- 2 medium-priority gaps identified
-- Follow-up sessions recommended for complete coverage
-```
+### External Resources
+1. Microsoft Teams Transcript Format Documentation
+2. GitHub API Documentation for file commits
+3. Claude AI Documentation
+4. RAID Framework Best Practices
 
 ---
 
 ## Document Control
 
-- **Version**: 1.0
-- **Created**: October 5, 2026
-- **Last Updated**: October 5, 2026
-- **Document Owner**: AAVA Development Team
-- **Review Cycle**: After each KT session
-- **Classification**: Internal Use
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| 1.0 | 2026-10-05 | Sowmya Sridhar | Initial KB document creation from KT session |
 
 ---
 
-## Notes
+## Contact Information
 
-This knowledge base document was generated from a live knowledge transfer session and represents the current state of the AAVA Agent Generation Workflow. The system is under active development, and enhancements are being implemented based on stakeholder feedback and client requirements.
+**For Technical Questions**:
+- Sowmya Sridhar (Workflow Design)
+- Kiruthika Ganesan (Agent Development)
+- Aaditya Nayar (Implementation)
 
-For questions or clarifications, please contact the AAVA development team or refer to the GitHub repository for the latest code and documentation updates.
+**For Business Questions**:
+- Ansiya Thangal Kunju (Project Lead)
+- Hariharan Krishnaraj (Domain Expert)
+
+**For Caresource-Specific Questions**:
+- Radhika (Client Liaison)
+- Nidhi (Domain Documentation)
+
+---
+
+## Appendix
+
+### Appendix A: Sample Coverage Matrix
+
+```markdown
+| Topic | Criticality | Coverage Status | Transcript Evidence |
+|-------|-------------|-----------------|---------------------|
+| Core Pipeline Workflow | High | Fully Covered | Knowledge base automation pipeline implements 3-stage workflow: file integration, dynamic extraction, Github synchronization |
+| System Objectives | High | Fully Covered | Complete details breakdown provided with subprocess documentation |
+| Github Uploader Tool Configuration | Medium | Fully Covered | Configuration parameters and authentication methods discussed |
+| Token-based Model Extraction | Medium | Partially Covered | Basic authentication concepts covered; specific implementation details missing |
+| Technology Stack Mapping | Medium | Partially Covered | Python-based automation mentioned; specific versions and libraries not documented |
+```
+
+### Appendix B: Sample Gap Analysis
+
+```markdown
+**Gap 1: Technical Architecture - Technology Stack Mapping**
+- **Criticality**: Medium
+- **Current State**: Session identified Python-based automation application
+- **Identified Gap**: Technologies not explicitly mapped to architecture components; missing Python version, specific libraries, and frameworks used
+- **Risk Assessment**: 
+  - Operational Risk: Medium
+  - Technical Risk: Medium
+- **Action Priority**: Medium
+- **Follow-up Question**: Please provide detailed technology stack mapping for each component, including Python version and all libraries/frameworks used
+
+**Gap 2: Deployment Configuration**
+- **Criticality**: Low
+- **Current State**: GitHub integration and repository structure discussed
+- **Identified Gap**: Deployment environment specifications and configuration management not covered
+- **Risk Assessment**:
+  - Operational Risk: Low
+  - Technical Risk: Low
+- **Action Priority**: Low
+- **Follow-up Question**: Document deployment environment requirements and configuration management approach
+```
+
+### Appendix C: Sample Recommendations
+
+```markdown
+**Immediate Actions**:
+1. ✅ Schedule follow-up session to address medium-risk gaps
+2. ✅ Document technology stack with specific versions
+3. ✅ Create architecture diagram mapping technologies to components
+
+**Short-term Actions**:
+1. 📋 Develop deployment runbook with environment specifications
+2. 📋 Document error handling and recovery procedures
+3. 📋 Create user guide for workflow execution
+
+**Low Priority**:
+1. 📝 Consider adding monitoring and alerting capabilities
+2. 📝 Explore integration with additional file formats
+3. 📝 Evaluate performance optimization opportunities
+```
+
+---
+
+**End of Knowledge Base Document**
+
+*This document was automatically generated by the AAVA Agent Generation Workflow on October 5, 2026. For updates or corrections, please contact the development team.*
